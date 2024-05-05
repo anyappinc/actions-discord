@@ -1,10 +1,11 @@
 # actions_notification
 
 ## latest version
-taiki-nd/actions_notification@v1.0.0
+anyappinc/actions-discord@v0.0.1
 
-## sample code
-```
+## usage
+
+```yml
 name: actions notification test
 on: [pull_request, push]
 
@@ -20,10 +21,10 @@ jobs:
       - name: Run Code
         run: go run main.go
 
-      - name: Hog
+      - name: Hoge
         run: something
 
-      # you need to set these environment
+      # you need to set environment variables
       - name: Setup environment
         if: Always()
         run: |
@@ -36,6 +37,18 @@ jobs:
       # set notification step
       - name: Notify
         if: Always()
-        uses: taiki-nd/actions_notification@v1.0.0
+        uses: anyappinc/actions-discord@v0.0.1
+```
+
+## Environment variables
+
+you need to set these environment variables in your yml file.
+
+```yml
+echo "WEBHOOK_URL=${{ secrets.WEBHOOK_URL }}" >> $GITHUB_ENV
+echo "GITHUB_STATUS=${{ job.status }}" >> $GITHUB_ENV
+echo "GITHUB_COMMIT_MESSAGE=${{ github.event.commits[0].message }}" >> $GITHUB_ENV
+echo "GITHUB_PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+echo "GITHUB_PR_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
 
 ```
