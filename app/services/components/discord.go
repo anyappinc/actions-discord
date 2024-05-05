@@ -7,6 +7,7 @@ import (
 	"github.com/anyappinc/actions-discord/app/module/discord"
 	"github.com/anyappinc/actions-discord/app/module/utils"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -66,9 +67,14 @@ func (discordComponent *DiscordComponent) MakeRequest() {
 		color = "16776960"
 	}
 
+	username := actionsInfo.GithubRepository
+	if strings.Contains(actionsInfo.GithubRepository, "discord") {
+		username = "Github Actions"
+	}
+
 	// set discord request
 	discordComponent.WebhookUrl = DiscordClient.WebhookUrl
-	discordComponent.DiscordReq.Username = actionsInfo.GithubRepository
+	discordComponent.DiscordReq.Username = username
 	discordComponent.DiscordReq.AvatarURL = ""
 	discordComponent.DiscordReq.Content = ""
 
@@ -127,16 +133,16 @@ func (discordComponent *DiscordComponent) MakeRequest() {
 
 func (discordComponent *DiscordComponent) SendRequest() error {
 	// body
-	json, err := json.Marshal(discordComponent.DiscordReq)
+	j, err := json.Marshal(discordComponent.DiscordReq)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
 
-	body := bytes.NewBuffer(json)
+	body := bytes.NewBuffer(j)
 
 	fmt.Println("discordComponent.WebhookUrl: ", discordComponent.WebhookUrl)
-	fmt.Println("body: ", string(json))
+	fmt.Println("body: ", string(j))
 	req, err := http.NewRequest("POST", discordComponent.WebhookUrl, body)
 	if err != nil {
 		fmt.Println(err)
