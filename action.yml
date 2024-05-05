@@ -1,0 +1,25 @@
+name: "Actions Notification"
+description: "Post Github Actions CI status to Discord"
+author: "taiki-nd"
+
+inputs:
+  webhook:
+    description: "Discord webhook endpoint."
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-go@v3
+      with:
+        go-version: 1.22
+
+    - name: Run
+      run: |
+        cd ${{ github.action_path }}
+        go mod download
+        go mod tidy
+        go build
+        go run main.go
+      shell: bash
