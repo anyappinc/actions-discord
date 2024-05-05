@@ -18,8 +18,8 @@ runs:
     - name: Run
       run: |
         cd ${{ github.action_path }}
-        go mod download
-        go mod tidy
-        go build
+#        go mod download
+#        go mod tidy
+#        go build
         go run main.go
       shell: bash
