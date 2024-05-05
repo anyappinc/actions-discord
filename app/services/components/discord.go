@@ -79,7 +79,7 @@ func (discordComponent *DiscordComponent) MakeRequest() {
 	discordComponent.DiscordReq.Content = ""
 
 	var embeds Embeds
-	embeds.Title = fmt.Sprintf("%s: %s", actionsInfo.GithubJobStatus.IconValue(), actionsInfo.GithubRepository)
+	embeds.Title = fmt.Sprintf("%s: %s", actionsInfo.GithubJobStatus.IconValue(), actionsInfo.GithubWorkflow)
 	embeds.Description = fmt.Sprintf("by %s", actionsInfo.GithubActor)
 	embeds.Timestamp = time.Now()
 	embeds.Color = color
