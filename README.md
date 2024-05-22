@@ -1,7 +1,7 @@
 # actions_notification
 
 ## latest version
-anyappinc/actions-discord@v0.0.1
+anyappinc/actions-discord@v0.0.2
 
 ## usage
 
@@ -37,7 +37,7 @@ jobs:
       # set notification step
       - name: Notify
         if: Always()
-        uses: anyappinc/actions-discord@v0.0.1
+        uses: anyappinc/actions-discord@v0.0.2
 ```
 
 ## Environment variables
